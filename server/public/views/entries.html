@@ -1,10 +1,66 @@
-<div layout="column">
-    <h1>Time Tracker</h1>
-    {{vm.message}}
-    <div>
-        <a href="#!/">Home</a>
-        <a href="#!/entries">Make an Entry</a>
-        <a href="#!/projects">Create a Project</a>
-        <a href="#!/reports">View Reports</a>
+<form action="">
+    <div layout="column">
+        <h1>Time Tracker</h1>
+        {{vm.message}}
+        <div class="md-padding">
+            <a href="#!/">Home</a>
+            <a href="#!/entries">Make an Entry</a>
+            <a href="#!/projects">Manage Projects</a>
+            <a href="#!/reports">View Reports</a>
+        </div>
+        <form action="">
+            <div>
+                <md-input-container>
+                    <label>Add Entry</label>
+                    <input type="text" ng-model="vm.objectToSend.name" required md-maxlength="60">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <div>
+                    <select>
+                        <option value="project">Learn Vue</option>
+                        <option value="">Develop Program</option>
+                        <option value="">Make Dinner</option>
+                    </select>
+                </div>
+                <div>
+                    <div>
+                        <md-input-container>
+                            <label>Start Time</label>
+                            <input type="text" ng-model="vm.objectToSend.start_time">
+                        </md-input-container>
+                    </div>
+                </div>
+                <div>
+                    <md-input-container>
+                        <label>End Time</label>
+                        <input type="text" ng-model="vm.objectToSend.end_time">
+                    </md-input-container>
+                </div>
+                <md-button class="md-raised md-primary" ng-click="vm.addEntry(vm.objectToSend)">Submit</md-button>
+            </div>
     </div>
-</div>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Entry</th>
+            <th>Project</th>
+            <th>Date</th>
+            <th>Hours</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="entry in vm.entriesArray| filter: test">
+            <td>{{entry.name}}</td>
+            <td>{{entry.date}}</td>
+            <td>{{entry.start_time}}</td>
+            <td>{{entry.end_time}}</td>
+            <!-- <td><button class="btn btn-success" ng-click="vm.updateTask(task)" ng-if="task.completed==true">Got
+                        it done?</button>
+                <td><button class="btn btn-secondary" ng-click="vm.deleteTask(task)">Delete</button></td> -->
+        </tr>
+    </tbody>
+</table>
+<!-- <pre>{{vm | json}}</pre> -->

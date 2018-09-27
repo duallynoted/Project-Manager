@@ -25,7 +25,40 @@ timeTrackerApp.controller('HomeController', ['$http', '$mdToast', '$mdDialog', f
 timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog', function ($http, $mdToast, $mdDialog) {
     self = this;
     self.message = ('This is the entry page.');
+    self.getEntries = function () {
+        console.log('getEntries working');
+        $http({
+            method: 'GET',
+            url: '/entries',
+        }).then(function (response) {
+            self.entriesArray = response.data;
+            console.log(response.data);            
+        }).catch(function (error) {
+            alert('Error GETTING entries from server!')
+            console.log('Error', error);
+        });//end GET listings call
+    }//end getListing
+
+    self.addEntry = function (newEntry) {
+        console.log(newEntry);
+        
+        $http({
+            method: 'POST',
+            url: '/entries',
+            data: newEntry
+        }).then(function (response) {
+            console.log('Back from Server with POST', response);
+            self.objectToSend = {};
+            self.getEntries();
+        }).catch(function (error) {
+            alert('Unable to add Entry: ', error);
+            console.log('Error', error);
+        });//end POST call
+    }//end addEntry
+
+    self.getEntries();
 }]);
+
 timeTrackerApp.controller('ProjectsController', ['$http', '$mdToast', '$mdDialog', function ($http, $mdToast, $mdDialog) {
     self = this;
     self.message = ('This is the project page.');
