@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // app.use('/', homeRouter);
 app.use('/entries', entriesRouter);
-// app.use('/projects', projectsRouter);
+app.use('/projects', projectsRouter);
 // app.use('/reports', reportsRouter);
 
 //spins
