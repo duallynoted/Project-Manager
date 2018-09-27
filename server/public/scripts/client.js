@@ -1,8 +1,13 @@
-console.log('js');
+const timeTrackerApp = angular.module('TimeTrackerApp', ['ngMaterial', 'ngRoute']);
 
-const timeTrackerApp = angular.module('TimeTrackerApp', ['ngMaterial', 'ngMessages']);
+timeTrackerApp.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/', {
+        templateUrl: 'views/home.html',
+        controller: 'HomeController as vm'
+    });
+}]);
 
-timeTrackerApp.controller('HomeController',['$http','$mdToast','$mdDialog', function($http,$mdToast,$mdDialog){
+timeTrackerApp.controller('HomeController', ['$http', '$mdToast', '$mdDialog', function ($http, $mdToast, $mdDialog) {
     self = this;
-    self.message=('Angular sure is sharp.');
+    self.message = ('Angular sure is sharp.');
 }]);

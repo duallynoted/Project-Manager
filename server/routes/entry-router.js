@@ -28,7 +28,7 @@ router.delete('/', (req, res) => [
     pool.query(`DELETE FROM "entry"
     WHERE "id" = ($1);`, [req.query.id])
         .then((results) => {
-            res.send(results.rows)
+            res.send(results.rows);
         }).catch((error) => {
             console.log('Error DELETING entry from PostgreSQL', error);
             res.sendStatus(500);

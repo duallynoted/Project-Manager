@@ -23,4 +23,15 @@ router.post('/', (req, res) => [
         })//end POST query
 ]);//end POST call server side
 
+router.delete('/', (req, res) => [
+    pool.query(`DELETE FROM "project"
+    WHERE "id" = ($1);`, [req.query.id])
+        .then((results) => {
+            res.send(results.rows);
+        }).catch((error) => {
+            console.log('Error DELETING project from PostgreSQL', error);
+            res.sendStatus(500);
+        })//end DELETE query
+]);//end DELETE call server side
+
 module.exports = router;
