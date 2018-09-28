@@ -25,6 +25,8 @@ timeTrackerApp.controller('HomeController', ['$http', '$mdToast', '$mdDialog', f
 timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog', function ($http, $mdToast, $mdDialog) {
     self = this;
     self.message = ('This is the entry page.');
+    this.myDate = new Date();
+    this.isOpen = false;
     self.getEntries = function () {
         console.log('getEntries working');
         $http({
