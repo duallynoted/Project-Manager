@@ -16,13 +16,11 @@
                 </md-input-container>
             </div>
             <div layout="row">
-                <div>
-                    <select ng-model="vm.objectToSend.project_id">
-                        <option value="3">Learn Vue</option>
-                        <option value="2">Develop Program</option>
-                        <option value="1">Make Dinner</option>
-                    </select>
-                </div>
+                <label>Project Name</label>
+                <md-select required ng-model="vm.objectToSend.project_id">
+                    <md-option value="">---Please select---</md-option>
+                    <md-option ng-repeat="project in vm.projectsArray" value="{{project.id}}">{{project.name}}</md-option>
+                </md-select>
                 <md-content layout-padding ng-cloak>
                     <div layout-gt-xs="row">
                         <div flex-gt-xs>
