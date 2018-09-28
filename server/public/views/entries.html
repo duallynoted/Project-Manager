@@ -17,12 +17,16 @@
             </div>
             <div layout="row">
                 <div>
-                    <select>
-                        <option value="project">Learn Vue</option>
-                        <option value="">Develop Program</option>
-                        <option value="">Make Dinner</option>
+                    <select ng-model="vm.objectToSend.project_id">
+                        <option value="3">Learn Vue</option>
+                        <option value="2">Develop Program</option>
+                        <option value="1">Make Dinner</option>
                     </select>
                 </div>
+                <form action="/action_page.php">
+                    Birthday:
+                    <input type="date" name="entryDate" ng-model="vm.objectToSend.date">
+                  </form>
                 <div>
                     <div>
                         <md-input-container>
