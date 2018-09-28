@@ -17,7 +17,7 @@ router.post('/', (req, res) => {
     console.log(req.body);
 
     pool.query(`INSERT INTO "entry" ("name","project_id", "date", "start_time","end_time")
-    VALUES ($1, $2, $3, $4, $5);`, [req.body.name, req.body.project_id, req.body.date, req.body.start_time, req.body.end_time])
+    VALUES ($1, $2, $3, $4, $5);`, [req.body.name, req.body.project_id, req.body.date, req.body.start_time.substring (11,19) , req.body.end_time.substring (11,19) ])
         .then((results) => {
             res.send(results.rows);
         }).catch((error) => {

@@ -23,53 +23,47 @@
                         <option value="1">Make Dinner</option>
                     </select>
                 </div>
-                <!-- <form action="/action_page.php">
-                    Birthday:
-                    <input type="date" name="entryDate" ng-model="vm.objectToSend.date">
-                  </form> -->
-                  <md-content layout-padding ng-cloak>
-                        <div layout-gt-xs="row">
-                          <div flex-gt-xs>
+                <md-content layout-padding ng-cloak>
+                    <div layout-gt-xs="row">
+                        <div flex-gt-xs>
                             <md-datepicker ng-model="vm.objectToSend.date" md-placeholder="Enter date"></md-datepicker>
-                          </div>
-                <div>
-                    <div>
-                        <md-input-container>
-                            <label>Start Time</label>
-                            <input type="text" ng-model="vm.objectToSend.start_time">
-                        </md-input-container>
+                        </div>
+                        <div>
+                            <div>
+                                <md-input-container>
+                                    <label>Start Time</label>
+                                    <input type="time" ng-model="vm.objectToSend.start_time">
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div>
+                            <md-input-container>
+                                <label>End Time</label>
+                                <input type="time" ng-model="vm.objectToSend.end_time">
+                            </md-input-container>
+                        </div>
+                        <md-button class="md-primary" ng-click="vm.addEntry(vm.objectToSend)">Submit</md-button>
                     </div>
-                </div>
-                <div>
-                    <md-input-container>
-                        <label>End Time</label>
-                        <input type="text" ng-model="vm.objectToSend.end_time">
-                    </md-input-container>
-                </div>
-                <md-button class="md-raised md-primary" ng-click="vm.addEntry(vm.objectToSend)">Submit</md-button>
             </div>
-    </div>
-</form>
-<table>
-    <thead>
-        <tr>
-            <th>Entry</th>
-            <th>Project</th>
-            <th>Date</th>
-            <th>Hours</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="entry in vm.entriesArray| filter: test">
-            <td>{{entry.name}}</td>
-            <td>{{entry.date}}</td>
-            <td>{{entry.start_time}}</td>
-            <td>{{entry.end_time}}</td>
-            <!-- <td><button class="btn btn-success" ng-click="vm.updateTask(task)" ng-if="task.completed==true">Got
-                        it done?</button>
-                <td><button class="btn btn-secondary" ng-click="vm.deleteTask(task)">Delete</button></td> -->
-        </tr>
-    </tbody>
-</table>
-<!-- <pre>{{vm | json}}</pre> -->
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Entry</th>
+                    <th>Project</th>
+                    <th>Date</th>
+                    <th>Hours</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="entry in vm.entriesArray| filter: test">
+                    <td>{{entry.name}}</td>
+                    <td>{{entry.date}}</td>
+                    <td>{{entry.start_time}}</td>
+                    <td>{{entry.end_time}}</td>
+                    <td><button class="btn btn-secondary" ng-click="vm.deleteEntry(entry)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <pre>{{vm | json}}</pre> -->
