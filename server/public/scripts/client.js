@@ -58,6 +58,21 @@ timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog'
         });//end POST call
     }//end addEntry
 
+    self.deleteEntry = function (entryToDelete) {
+        $http({
+            method: 'DELETE',
+            url: '/entries',
+            params: entryToDelete
+        }).then(function (response) {
+            console.log('Delete', response.data);
+            self.getEntries();
+        }).catch(function (error) {
+            alert('Error DELETING entry from server!')
+            console.log('error', error);
+        });//end DELETE entries call
+    self.getEntries();
+    };
+
     self.getEntries();
 }]);
 
