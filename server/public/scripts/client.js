@@ -123,6 +123,20 @@ timeTrackerApp.controller('ProjectsController', ['$http', '$mdToast', '$mdDialog
             console.log('Error', error);
         });//end POST call
     };//end addProject
+
+    self.deleteProject = function (projectToDelete) {
+        $http({
+            method: 'DELETE',
+            url: '/projects',
+            params: projectToDelete
+        }).then(function (response) {
+            console.log('Delete', response.data);
+            self.getProjects();
+        }).catch(function (error) {
+            alert('Error DELETING project from server!')
+            console.log('error', error);
+        });//end DELETE project call
+    };//end deleteProject
     self.getProjects();
 }]);
 
