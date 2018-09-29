@@ -4,7 +4,9 @@ const pool = require('../module/pool');
 
 
 router.get('/', (req, res) => {
-    pool.query(`SELECT * FROM "entry"`)
+    pool.query(`SELECT "entry".id, "entry".name, "entry".date, "entry".start_time, "entry".end_time, "project".name as "project"
+    FROM "entry"
+    JOIN "project" ON "project"."id" = "entry"."project_id";`)
         .then((results) => {
             res.send(results.rows);
         }).catch((error) => {

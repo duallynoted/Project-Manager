@@ -44,8 +44,11 @@ timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog'
     self.timeDiff = function (txt) {
         let st = txt.start_time.split(':');
         let et = txt.end_time.split(':');
-        let answer = ((et[0]*60 + Number(et[1])+ et[2]/60) - (st[0]*60 + Number(st[1])+ st[2]/60))/60;
+        let answer = ((et[0] * 60 + Number(et[1]) + et[2] / 60) - (st[0] * 60 + Number(st[1]) + st[2] / 60)) / 60;
         return answer.toFixed(2);
+    };
+    self.dateOfProject = function (txt) {
+        return moment(txt.date).format('MM/DD/YYYY');
     };
 
     self.getProjects = function () {
