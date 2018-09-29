@@ -13,11 +13,22 @@ router.get('/', (req, res) => {
         });//end GET query
 });//end GET call server side
 
+// router.get('/', (req, res) => {
+//     pool.query(`SELECT * FROM "entry"
+//     JOIN "project" ON "project"."id" = "entry"."project_id";`)
+//         .then((results) => {
+//             res.send(results.rows);
+//         }).catch((error) => {
+//             res.send(500);
+//             console.log('error', error);
+//         });//end GET query
+// });//end GET call server side
+
 router.post('/', (req, res) => {
     console.log(req.body);
 
     pool.query(`INSERT INTO "entry" ("name","project_id", "date", "start_time","end_time")
-    VALUES ($1, $2, $3, $4, $5);`, [req.body.name, req.body.project_id, req.body.date, req.body.start_time.substring (11,19) , req.body.end_time.substring (11,19) ])
+    VALUES ($1, $2, $3, $4, $5);`, [req.body.name, req.body.project_id, req.body.date.substring(0, 10), req.body.start_time.substring(11, 19), req.body.end_time.substring(11, 19)])
         .then((results) => {
             res.send(results.rows);
         }).catch((error) => {
@@ -36,6 +47,19 @@ router.delete('/', (req, res) => {
             res.sendStatus(500);
         })//end DELETE query
 });//end DELETE call server side
+
+router.put('/', (req, res) => {
+    console.log(req.query);
+
+    pool.query(`INSERT INTO "entry" ("name","project_id", "date", "start_time","end_time")
+    VALUES ($1, $2, $3, $4, $5);`, [req.query.name, req.query.project_id, req.query.date.substring(0, 10), req.query.start_time.substring(11, 19), req.query.end_time.substring(11, 19)])
+        .then((results) => {
+            res.send(results.rows);
+        }).catch((error) => {
+            console.log('Error UPDATING entry from PostgreSQL', error);
+            res.sendStatus(500);
+        })//end PUT query
+});//end PUT call server side
 
 
 module.exports = router;

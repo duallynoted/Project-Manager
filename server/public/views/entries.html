@@ -57,10 +57,10 @@
             <tbody>
                 <tr ng-repeat="entry in vm.entriesArray| filter: test">
                     <td>{{entry.name}}</td>
+                    <td>{{entry.project_id}}</td>
                     <td>{{entry.date}}</td>
-                    <td>{{entry.start_time}}</td>
-                    <td>{{entry.end_time}}</td>
-                    <td><button class="btn btn-secondary" ng-click="vm.deleteEntry(entry)">Delete</button></td>
+                    <td>{{vm.timeDiff(entry)}}</td>
+                    <td><button ng-click="vm.deleteEntry(entry)">Delete</button></td>
                 </tr>
             </tbody>
         </table>

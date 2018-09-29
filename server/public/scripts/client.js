@@ -22,6 +22,7 @@ timeTrackerApp.controller('HomeController', ['$http', '$mdToast', '$mdDialog', f
     self = this;
     self.message = ('Angular sure is sharp.');
 }]);
+
 timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog', function ($http, $mdToast, $mdDialog) {
     self = this;
     self.message = ('This is the entry page.');
@@ -34,13 +35,19 @@ timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog'
             url: '/entries',
         }).then(function (response) {
             self.entriesArray = response.data;
-            console.log(response.data);
         }).catch(function (error) {
-            alert('Error GETTING entries from server!')
+            alert('Error GETTING entries from server!');
             console.log('Error', error);
         });//end GET entries call
-    }//end getEntries
-    
+    };//end getEntries
+
+    self.timeDiff = function (txt) {
+        let st = txt.start_time.split(':');
+        let et = txt.end_time.split(':');
+        let answer = ((et[0]*60 + Number(et[1])+ et[2]/60) - (st[0]*60 + Number(st[1])+ st[2]/60))/60;
+        return answer.toFixed(2);
+    };
+
     self.getProjects = function () {
         console.log('getProjects working');
         $http({
@@ -54,7 +61,21 @@ timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog'
             console.log('Error', error);
         });//end GET projects call
     };//end getProjects
-    
+
+    // self.joinTables = function () {
+    //     console.log('getProjects working');
+    //     $http({
+    //         method: 'GET',
+    //         url: '/entries',
+    //     }).then(function (response) {
+    //         self.joinsArray = response.data;
+    //         console.log(response.data);
+    //     }).catch(function (error) {
+    //         alert('Error GETTING projects from server!');
+    //         console.log('Error', error);
+    //     });//end GET projects call
+    // };//end getProjects
+
 
     self.addEntry = function (newEntry) {
         console.log(newEntry);
@@ -87,8 +108,26 @@ timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog'
         });//end DELETE entries call
     };//end deleteEntry
 
+    // self.updateEntry = function(update){
+    //     console.log(newEntry);
+    //     $http({
+    //         method: 'PUT',
+    //         url: '/entries',
+    //         data: update
+    //     }).then(function (response) {
+    //         console.log('Back from Server with UPDATE', response);
+    //         self.objectToSend = {};
+    //         self.getEntries();
+    //     }).catch(function (error) {
+    //         alert('Unable to add Update: ', error);
+    //         console.log('Error', error);
+    //     });//end PUT call
+    // };//end updateEntry
+
+
     self.getEntries();
     self.getProjects();
+    // self.updateEntry();
 }]);
 
 timeTrackerApp.controller('ProjectsController', ['$http', '$mdToast', '$mdDialog', function ($http, $mdToast, $mdDialog) {
