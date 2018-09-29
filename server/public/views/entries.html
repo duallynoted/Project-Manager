@@ -1,47 +1,48 @@
 <form action="">
     <div layout="column">
         <h1>Time Tracker</h1>
-        {{vm.message}}
+
         <div class="md-padding">
             <a href="#!/">Home</a>
             <a href="#!/entries">Make an Entry</a>
             <a href="#!/projects">Manage Projects</a>
             <a href="#!/reports">View Reports</a>
         </div>
-        <form action="">
-            <div>
+        <form>
+            <div layout="row">
                 <md-input-container>
                     <label>Add Entry</label>
                     <input type="text" ng-model="vm.objectToSend.name" required md-maxlength="60">
                 </md-input-container>
+                <div>
+                    <md-datepicker ng-model="vm.objectToSend.date" md-placeholder="Enter date"></md-datepicker>
+                </div>
             </div>
             <div layout="row">
-                <label>Project Name</label>
-                <md-select required ng-model="vm.objectToSend.project_id">
-                    <md-option value="">---Please select---</md-option>
-                    <md-option ng-repeat="project in vm.projectsArray" value="{{project.id}}">{{project.name}}</md-option>
-                </md-select>
-                <md-content layout-padding ng-cloak>
-                    <div layout-gt-xs="row">
-                        <div flex-gt-xs>
-                            <md-datepicker ng-model="vm.objectToSend.date" md-placeholder="Enter date"></md-datepicker>
-                        </div>
-                        <div>
-                            <div>
-                                <md-input-container>
-                                    <label>Start Time</label>
-                                    <input type="time" ng-model="vm.objectToSend.start_time">
-                                </md-input-container>
-                            </div>
-                        </div>
+                <div>
+                    <select required ng-model="vm.objectToSend.project_id">
+                        <option value="">Select Project</option>
+                        <option ng-repeat="project in vm.projectsArray" value="{{project.id}}">{{project.name}}</option>
+                    </select>
+                </div>
+                <div layout="row">
+                    <div>
                         <div>
                             <md-input-container>
-                                <label>End Time</label>
-                                <input type="time" ng-model="vm.objectToSend.end_time">
+                                <label>Start Time</label>
+                                <input type="time" ng-model="vm.objectToSend.start_time">
                             </md-input-container>
                         </div>
-                        <md-button class="md-primary" ng-click="vm.addEntry(vm.objectToSend)">Submit</md-button>
                     </div>
+                    <div>
+                        <md-input-container>
+                            <label>End Time</label>
+                            <input type="time" ng-model="vm.objectToSend.end_time">
+                        </md-input-container>
+                    </div>
+                    <md-button class="md-primary" ng-click="vm.addEntry(vm.objectToSend)">Submit</md-button>
+                </div>
+                <!-- </md-content> -->
             </div>
         </form>
         <table>
@@ -60,7 +61,7 @@
                     <td>{{entry.project}}</td>
                     <td>{{vm.dateOfProject(entry)}}</td>
                     <td>{{vm.timeDiff(entry)}}</td>
-                    <td><button ng-click="vm.deleteEntry(entry)">Delete</button></td>
+                    <td><md-button class="md-warn md-raised" ng-click="vm.deleteEntry(entry)">Delete</md-button></td>
                 </tr>
             </tbody>
         </table>

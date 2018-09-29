@@ -1,3 +1,25 @@
-table, th, td {
-    border: 1px solid rgb(22, 148, 227);
+/* table{
+    border: 1px solid rgb(0, 0, 0);
+}
+th{
+   border-block-end-color: beige; 
+} */
+table {
+    font-family: AvenirNext, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #7CE0F9;
+}   
+.container{
+    width: 960px;
+    margin:auto;
 }
