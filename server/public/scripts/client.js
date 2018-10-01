@@ -40,16 +40,20 @@ timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog'
         });//end GET entries call
     };//end getEntries
 
+   //this will parse out end time and start time and subtract them to get the total percentage of an hour
     self.timeDiff = function (txt) {
         let st = txt.start_time.split(':');
         let et = txt.end_time.split(':');
         let answer = ((et[0] * 60 + Number(et[1]) + et[2] / 60) - (st[0] * 60 + Number(st[1]) + st[2] / 60)) / 60;
         return answer.toFixed(2);
     };
+
+    //this will convert the date to human readable txt
     self.dateOfProject = function (txt) {
         return moment(txt.date).format('MM/DD/YYYY');
     };
 
+    //this will get projects from the project table DB to display on the html table
     self.getProjects = function () {
         console.log('getProjects working');
         $http({
@@ -94,6 +98,7 @@ timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog'
         });//end DELETE entries call
     };//end deleteEntry
 
+   //this will (eventually) be used to edit entries
     // self.updateEntry = function(update){
     //     console.log(newEntry);
     //     $http({
@@ -109,8 +114,6 @@ timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog'
     //         console.log('Error', error);
     //     });//end PUT call
     // };//end updateEntry
-
-
     self.getEntries();
     self.getProjects();
     // self.updateEntry();
@@ -137,6 +140,7 @@ timeTrackerApp.controller('ProjectsController', ['$http', '$mdToast', '$mdDialog
             console.log('Error', error);
         });//end GET projects call
 
+        //this will total project hours from self.hoursTotal    
         self.getProjectTotals = function (project) {
             console.log('Project ID = ', project.id);
             $http({
