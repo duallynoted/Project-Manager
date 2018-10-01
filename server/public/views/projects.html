@@ -47,7 +47,7 @@
     <tbody>
         <tr ng-repeat="project in vm.projectsArray| filter: searchAll">
             <td><a href="#!/entries">{{project.name}}</a></td>
-            <td>{{vm.hoursTotal(project)}}</td>
+            <td>{{project.totalHours}}</td>
             <td><md-button class="md-warn md-raised" ng-click="vm.deleteProject(project)">Completed</md-button></td>
         </tr>
     </tbody>

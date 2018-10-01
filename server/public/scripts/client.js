@@ -119,6 +119,7 @@ timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog'
 timeTrackerApp.controller('ProjectsController', ['$http', '$mdToast', '$mdDialog', function ($http, $mdToast, $mdDialog) {
     self = this;
     self.message = ('This is the project page.');
+
     self.getProjects = function () {
         console.log('getProjects working');
         $http({
@@ -127,33 +128,45 @@ timeTrackerApp.controller('ProjectsController', ['$http', '$mdToast', '$mdDialog
         }).then(function (response) {
             self.projectsArray = response.data;
             console.log('getProjects:', response.data);
+            for (let i = 0; i < response.data.length; i++) {
+                console.log('LOOOOOK', response.data[i]);
+                self.getProjectTotals(response.data[i]);
+            }
         }).catch(function (error) {
             alert('Error GETTING projects from server!')
             console.log('Error', error);
         });//end GET projects call
+
+        self.getProjectTotals = function (project) {
+            console.log('Project ID = ', project.id);
+            $http({
+                method: 'GET',
+                url: '/projectTotals',
+                params: { project_id: project.id }
+            }).then(function (response) {
+                self.projectTotalsArray = response.data;
+                for (let i = 0; i < response.data.length; i++) {
+                    console.log('getTotals:', response.data[i]);
+                    let totals =self.hoursTotal(response.data[i]);
+                    self.projectsArray[i].totalHours = totals;
+                    console.log('Look here for TOTALS', project.totalHours);
+
+                }
+            }).catch(function (error) {
+                alert('Error GETTING project total from server!');
+                console.log('Error', error);
+            });//end GET projectTotal call        
+        };//end getProjectTotals
+    };
+
+    self.hoursTotal = function (txt) {
+        console.log('HEEEEEEEY', txt);
+        let st = txt.start_time.split(':');
+        let et = txt.end_time.split(':');
+        let answer = ((et[0] * 60 + Number(et[1]) + et[2] / 60) + (st[0] * 60 + Number(st[1]) + st[2] / 60)) / 60;
         
-        $http({
-            method: 'GET',
-            url: '/projectTotals',
-        }).then(function (response) {
-            self.projectTotalsArray = response.data;
-            for (let i = 4; i < response.data.length; i++) {
-                console.log('getTotals:',response.data[i]);                
-            }
-        }).catch(function (error) {
-            alert('Error GETTING project total from server!');
-            console.log('Error', error);
-        });//end GET projectTotal call        
-    };//end getProjects
-    
-    // self.hoursTotal = function (txt) {
-    //     // let st = txt.start_time.split(':');
-    //     // let et = txt.end_time.split(':');
-    //     // let answer = ((et[0] * 60 + Number(et[1]) + et[2] / 60) - (st[0] * 60 + Number(st[1]) + st[2] / 60)) / 60;
-    //     console.log('HEEEEEEEY', txt);
-        
-    //     // return answer.toFixed(2);
-    // }
+        return answer.toFixed(2);
+    }
 
     self.addProject = function (newProject) {
         console.log(newProject);
@@ -185,6 +198,7 @@ timeTrackerApp.controller('ProjectsController', ['$http', '$mdToast', '$mdDialog
         });//end DELETE project call
     };//end deleteProject
     self.getProjects();
+    // self.getProjectTotals(project);
 }]);
 
 timeTrackerApp.controller('ReportsController', ['$http', '$mdToast', '$mdDialog', function ($http, $mdToast, $mdDialog) {
