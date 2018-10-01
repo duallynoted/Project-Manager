@@ -26,8 +26,7 @@ timeTrackerApp.controller('HomeController', ['$http', '$mdToast', '$mdDialog', f
 timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog', function ($http, $mdToast, $mdDialog) {
     self = this;
     self.message = ('This is the entry page.');
-    this.myDate = new Date();
-    this.isOpen = false;
+
     self.getEntries = function () {
         console.log('getEntries working');
         $http({
@@ -65,24 +64,7 @@ timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog'
         });//end GET projects call
     };//end getProjects
 
-    // self.joinTables = function () {
-    //     console.log('getProjects working');
-    //     $http({
-    //         method: 'GET',
-    //         url: '/entries',
-    //     }).then(function (response) {
-    //         self.joinsArray = response.data;
-    //         console.log(response.data);
-    //     }).catch(function (error) {
-    //         alert('Error GETTING projects from server!');
-    //         console.log('Error', error);
-    //     });//end GET projects call
-    // };//end getProjects
-
-
     self.addEntry = function (newEntry) {
-        console.log(newEntry);
-
         $http({
             method: 'POST',
             url: '/entries',
@@ -104,6 +86,7 @@ timeTrackerApp.controller('EntriesController', ['$http', '$mdToast', '$mdDialog'
             params: entryToDelete
         }).then(function (response) {
             console.log('Delete', response.data);
+            swal('Zang!')
             self.getEntries();
         }).catch(function (error) {
             alert('Error DELETING entry from server!')
@@ -143,12 +126,34 @@ timeTrackerApp.controller('ProjectsController', ['$http', '$mdToast', '$mdDialog
             url: '/projects',
         }).then(function (response) {
             self.projectsArray = response.data;
-            console.log(response.data);
+            console.log('getProjects:', response.data);
         }).catch(function (error) {
             alert('Error GETTING projects from server!')
             console.log('Error', error);
         });//end GET projects call
+        
+        $http({
+            method: 'GET',
+            url: '/projectTotals',
+        }).then(function (response) {
+            self.projectTotalsArray = response.data;
+            for (let i = 4; i < response.data.length; i++) {
+                console.log('getTotals:',response.data[i]);                
+            }
+        }).catch(function (error) {
+            alert('Error GETTING project total from server!');
+            console.log('Error', error);
+        });//end GET projectTotal call        
     };//end getProjects
+    
+    // self.hoursTotal = function (txt) {
+    //     // let st = txt.start_time.split(':');
+    //     // let et = txt.end_time.split(':');
+    //     // let answer = ((et[0] * 60 + Number(et[1]) + et[2] / 60) - (st[0] * 60 + Number(st[1]) + st[2] / 60)) / 60;
+    //     console.log('HEEEEEEEY', txt);
+        
+    //     // return answer.toFixed(2);
+    // }
 
     self.addProject = function (newProject) {
         console.log(newProject);
@@ -175,7 +180,7 @@ timeTrackerApp.controller('ProjectsController', ['$http', '$mdToast', '$mdDialog
             console.log('Delete', response.data);
             self.getProjects();
         }).catch(function (error) {
-            alert('Error DELETING project from server!')
+            swal('Project cannot be completed until all entries are finished')
             console.log('error', error);
         });//end DELETE project call
     };//end deleteProject

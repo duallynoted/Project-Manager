@@ -1,6 +1,6 @@
 <form action="">
     <div layout="column">
-            <h1>Projects</h1>
+            <h1>Projects      <i class="fas fa-project-diagram"></i></h1>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <a class="navbar-brand" href="#!/">Home</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,31 +21,33 @@
                       </ul>
                       <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="text" placeholder="Search Projects or Entries" ng-model="searchAll" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            
                       </form>
                     </div>
                   </nav>
         <form action="">
-            <div>
+            <div layout="row" layout-wrap>
                 <md-input-container>
                     <label>Add Entry</label>
                     <input type="text" ng-model="vm.objectToSend.name" required md-maxlength="60">
                 </md-input-container>
-            </div>
+            
             <md-button class="md-primary" ng-click="vm.addProject(vm.objectToSend)">Submit</md-button>
+        </div>
     </div>
 </form>
 <table id="tableOnly">
     <thead>
         <tr>
             <th>Project</th>
-            <!-- <th>Total Hours</th> -->
+            <th>Total Hours</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="project in vm.projectsArray| filter: test">
+        <tr ng-repeat="project in vm.projectsArray| filter: searchAll">
             <td><a href="#!/entries">{{project.name}}</a></td>
+            <td>{{vm.hoursTotal(project)}}</td>
             <td><md-button class="md-warn md-raised" ng-click="vm.deleteProject(project)">Completed</md-button></td>
         </tr>
     </tbody>
