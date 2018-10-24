@@ -2,9 +2,7 @@ const express = require('express');
 let router = express.Router();
 const pool = require('../module/pool');
 
-router.get('/', (req, res) => { 
-    console.log(req.query.project_id);
-    
+router.get('/', (req, res) => {     
     pool.query(`SELECT * FROM "entry"
     WHERE "entry"."project_id" = $1;`, [req.query.project_id])    
         .then((results) => {
